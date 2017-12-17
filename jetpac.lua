@@ -10,58 +10,6 @@ KEY_RIGHT =3
 
 KEY_COUNT =3
 
-Spaceman=
-{
-  SPR_SPCMN_WLK=96,
-  SPR_SPCMN_FLY=104,
-  x=0,
-  y=0,
-  frame=0,
-  dir=0,
-  flying=false
-}
-
-function Spaceman:init()
-  self.x=108
-  self.y=104
-  self.frame=0
-  self.dir=0
-  self.flying=false
-end
-
-function Spaceman:movel()
-  if self.dir==0 then
-    self.x=self.x-2
-    self.frame=(self.frame+1)%4
-  else
-    self.dir=0
-  end		
-end
-
-function Spaceman:mover()
-  if self.dir==1 then
-    self.x=self.x+2
-    self.frame=self.frame-1
-    if self.frame<0 then 
-      self.frame=3 
-    end
-  else
-    self.dir=1
-  end		
-end
-
-function Spaceman:draw()
-  if not self.flying then
-    spr(self.SPR_SPCMN_WLK+self.frame*2,
-        self.x,self.y,0,1,
-        self.dir,0,2,3)
-  else
-    spr(self.SPR_SPCMN_FLY+self.frame*2,
-        self.x,self.y,0,1,
-        self.dir,0,2,3)
-  end
-end
-
 last_button=-1
 button_repeats=0
 
@@ -155,6 +103,63 @@ function Sky:draw()
   end
 end
 -- </CODE1>
+
+-- <CODE2>
+-- Spaceman class
+
+Spaceman=
+{
+  SPR_SPCMN_WLK=96,
+  SPR_SPCMN_FLY=104,
+  x=0,
+  y=0,
+  frame=0,
+  dir=0,
+  flying=false
+}
+
+function Spaceman:init()
+  self.x=108
+  self.y=104
+  self.frame=0
+  self.dir=0
+  self.flying=false
+end
+
+function Spaceman:movel()
+  if self.dir==0 then
+    self.x=self.x-2
+    self.frame=(self.frame+1)%4
+  else
+    self.dir=0
+  end
+end
+
+function Spaceman:mover()
+  if self.dir==1 then
+    self.x=self.x+2
+    self.frame=self.frame-1
+    if self.frame<0 then
+      self.frame=3
+    end
+  else
+    self.dir=1
+  end
+end
+
+function Spaceman:draw()
+  if not self.flying then
+    spr(self.SPR_SPCMN_WLK+self.frame*2,
+        self.x,self.y,0,1,
+        self.dir,0,2,3)
+  else
+    spr(self.SPR_SPCMN_FLY+self.frame*2,
+        self.x,self.y,0,1,
+        self.dir,0,2,3)
+  end
+end
+
+-- </CODE2>
 
 -- <TILES>
 -- 001:00b0bbbb0bbbbbbbbbbbbbbbbb0bbb0bbbbbb0bb0bbbb0bb0bbb000b00b0000b
