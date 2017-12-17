@@ -10,11 +10,10 @@ KEY_RIGHT =3
 
 KEY_COUNT =3
 
-SPR_SPCMN_WLK =  96
-SPR_SPCMN_FLY = 104
-
 Spaceman=
 {
+  SPR_SPCMN_WLK=96,
+  SPR_SPCMN_FLY=104,
   x=0,
   y=0,
   frame=0,
