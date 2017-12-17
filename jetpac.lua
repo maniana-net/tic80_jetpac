@@ -62,48 +62,6 @@ function Spaceman:draw()
   end
 end
 
-Sky=
-{
-  SKY_SPEED=4,
-  stars={},
-  count
-}
-
-function Sky:init()
-  for i=1,40 do
-    p=
-    {
-      x=math.random(0,239),
-      y=math.random(0,136),
-      color=math.random(2,5),
-      speed=math.random(1,3)
-    }
-    table.insert(self.stars,p);
-  end
-  self.count=0
-end
-
-function Sky:tic()
-  self.count=(self.count+1)%self.SKY_SPEED
-  if self.count==0 then
-    for i=1,#self.stars do
-      self.stars[i].x=self.stars[i].x-self.stars[i].speed
-      if self.stars[i].x<0 then
-        self.stars[i].x=239
-        self.stars[i].y=math.random(0,128)
-        self.stars[i].color=math.random(2,5)
-        self.stars[i].speed=math.random(1,3)
-      end
-    end
-  end
-end
-
-function Sky:draw()
-  for i=1,#self.stars do
-    pix(self.stars[i].x,self.stars[i].y,self.stars[i].color)
-  end
-end
-
 last_button=-1
 button_repeats=0
 
@@ -152,6 +110,52 @@ function TIC()
   map(0,0,30,17,0,0,0)
   Spaceman:draw()
 end
+-- <CODE1>
+-- Sky class for drawing moving stars
+
+Sky=
+{
+  SKY_SPEED=4,
+  stars={},
+  count
+}
+
+function Sky:init()
+  for i=1,40 do
+    p=
+    {
+      x=math.random(0,239),
+      y=math.random(0,136),
+      color=math.random(2,5),
+      speed=math.random(1,3)
+    }
+    table.insert(self.stars,p);
+  end
+  self.count=0
+end
+
+function Sky:tic()
+  self.count=(self.count+1)%self.SKY_SPEED
+  if self.count==0 then
+    for i=1,#self.stars do
+      self.stars[i].x=self.stars[i].x-self.stars[i].speed
+      if self.stars[i].x<0 then
+        self.stars[i].x=239
+        self.stars[i].y=math.random(0,128)
+        self.stars[i].color=math.random(2,5)
+        self.stars[i].speed=math.random(1,3)
+      end
+    end
+  end
+end
+
+function Sky:draw()
+  for i=1,#self.stars do
+    pix(self.stars[i].x,self.stars[i].y,self.stars[i].color)
+  end
+end
+-- </CODE1>
+
 -- <TILES>
 -- 001:00b0bbbb0bbbbbbbbbbbbbbbbb0bbb0bbbbbb0bb0bbbb0bb0bbb000b00b0000b
 -- 002:b0bbbb0bbbbbbbbbbbbbbbbbbbbb0bbbbbb0b0bbbb0bbb0bb0b0bb0b00000b00
