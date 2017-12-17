@@ -52,13 +52,55 @@ end
 
 function Spaceman:draw()
   if not self.flying then
-    spr(SPR_SPCMN_WLK+self.frame*2,
+    spr(self.SPR_SPCMN_WLK+self.frame*2,
         self.x,self.y,0,1,
         self.dir,0,2,3)
   else
-    spr(SPR_SPCMN_FLY+self.frame*2,
+    spr(self.SPR_SPCMN_FLY+self.frame*2,
         self.x,self.y,0,1,
         self.dir,0,2,3)
+  end
+end
+
+Sky=
+{
+  SKY_SPEED=4,
+  stars={},
+  count
+}
+
+function Sky:init()
+  for i=1,40 do
+    p=
+    {
+      x=math.random(0,239),
+      y=math.random(0,136),
+      color=math.random(2,5),
+      speed=math.random(1,3)
+    }
+    table.insert(self.stars,p);
+  end
+  self.count=0
+end
+
+function Sky:tic()
+  self.count=(self.count+1)%self.SKY_SPEED
+  if self.count==0 then
+    for i=1,#self.stars do
+      self.stars[i].x=self.stars[i].x-self.stars[i].speed
+      if self.stars[i].x<0 then
+        self.stars[i].x=239
+        self.stars[i].y=math.random(0,128)
+        self.stars[i].color=math.random(2,5)
+        self.stars[i].speed=math.random(1,3)
+      end
+    end
+  end
+end
+
+function Sky:draw()
+  for i=1,#self.stars do
+    pix(self.stars[i].x,self.stars[i].y,self.stars[i].color)
   end
 end
 
@@ -66,6 +108,7 @@ last_button=-1
 button_repeats=0
 
 function init()
+  Sky:init()
   Spaceman:init()
 end
 
@@ -104,7 +147,9 @@ function TIC()
   end
 
   cls()
-  map()
+  Sky:tic()
+  Sky:draw()
+  map(0,0,30,17,0,0,0)
   Spaceman:draw()
 end
 -- <TILES>
